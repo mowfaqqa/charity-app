@@ -1,7 +1,27 @@
-import 'focus-visible'
-import '@/styles/tailwind.css'
+import '../styles/globals.css'
 import { AppProps } from 'next/app'
+import { NextPage } from 'next';
+import { ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
-export default function App({ Component, pageProps } : AppProps) {
-  return <Component {...pageProps} />
+type NextPageWithLayout = NextPage & {
+  getLayout?: (page: React.ReactElement) => React.ReactNode;
+};
+type AppPropsWithLayout = AppProps & {
+  Component: NextPageWithLayout;
+}; 
+
+function MyApp({ Component, pageProps }: AppPropsWithLayout) {
+  const getLayout = Component.getLayout ?? ((page) => page);
+  return getLayout(
+    <>
+      <Component {...pageProps} />
+      <ToastContainer 
+      theme="colored"
+      autoClose={3000}
+      />
+      </>
+  )
 }
+
+export default MyApp

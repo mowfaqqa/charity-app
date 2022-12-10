@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+@layer components {
+  /* buttons classes */
+  .button {
+    @apply inline-flex cursor-pointer justify-center items-center text-[18px] font-semibold gap-1 px-4 py-3 rounded-lg leading-[24px];
+  }
+
+  .button-primary {
+    @apply bg-stone-700 text-white;
+  }
+
+  .button-primary:hover {
+    @apply bg-stone-500;
+  }
+
+  .button-primary:focus {
+    @apply ring ring-offset-0 ring-gray-50;
+  }
+
+  .button-primary:active {
+    @apply bg-stone-500;
+  }
+  /* Tab */
+  .Tab {
+    @apply mx-2 flex gap-6 text-sm font-medium text-[#667085];
+  }
+
+  .Tab__contained {
+    @apply py-3 rounded-lg focus:outline-none;
+  }
+
+  .Tab__contained_selected {
+    @apply bg-stone-700 text-[#d0d1d4] px-2;
+  }
+
+  .Tab__outlined {
+    @apply py-3;
+  }
+
+  .Tab__outlined_selected {
+    @apply border-b-2 border-solid border-orange-400 text-orange-400;
+  }
+
+}
