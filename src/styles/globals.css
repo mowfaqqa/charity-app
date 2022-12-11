@@ -11,23 +11,23 @@
   }
 
   .button-primary {
-    @apply bg-stone-700 text-white;
+    @apply bg-green-400 text-white;
   }
 
   .button-primary:hover {
-    @apply bg-stone-500;
+    @apply bg-green-700;
   }
 
   .button-primary:focus {
-    @apply ring ring-offset-0 ring-gray-50;
+    @apply ring ring-offset-0 ring-green-50;
   }
 
   .button-primary:active {
-    @apply bg-stone-500;
+    @apply bg-green-400;
   }
   /* Tab */
   .Tab {
-    @apply mx-2 flex gap-6 text-sm font-medium text-[#667085];
+    @apply mx-2 flex gap-6 text-sm font-medium text-yellow-500;
   }
 
   .Tab__contained {
@@ -35,7 +35,7 @@
   }
 
   .Tab__contained_selected {
-    @apply bg-stone-700 text-[#d0d1d4] px-2;
+    @apply bg-green-700 text-[#d0d1d4] px-2;
   }
 
   .Tab__outlined {
@@ -43,7 +43,7 @@
   }
 
   .Tab__outlined_selected {
-    @apply border-b-2 border-solid border-orange-400 text-orange-400;
+    @apply border-b-2 border-solid border-orange-400 text-yellow-400;
   }
 
 }

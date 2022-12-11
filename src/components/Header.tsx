@@ -75,9 +75,9 @@ function MobileNavLink({ href, children } : any) {
             >
               <Link href="/signup/donor" passHref><span> Register as donor</span> </Link>
               <Link href="/signup/recipient" passHref><span> Register as recipient</span> </Link>
-              <hr className="m-2 border-indigo-300/40" />
+              <hr className="m-2 border-green-300/40" />
               <Link href="/login" passHref>Log In</Link>
-            </Popover.Panel>
+            </Popover.Panel> 
           </Transition.Child>
         </Transition.Root>
       </Popover>
@@ -91,7 +91,7 @@ function MobileNavLink({ href, children } : any) {
           <nav className="relative z-50 flex justify-between">
             <div className="flex items-center md:gap-x-12">
               <Link href="#" aria-label="Home">
-                <h1 className='text-4xl font-bold text-indigo-500'><span className='text-indigo-500'>Charity</span>App</h1>
+                <h1 className='text-4xl font-bold text-yellow-500'><span className='text-green-500'>Charity</span>App</h1>
               </Link>
             </div>
             <div className="flex items-center gap-x-5 md:gap-x-8">
@@ -108,7 +108,7 @@ function MobileNavLink({ href, children } : any) {
                     </span>    
                 </Link>
                 <Link href="/login" passHref>
-                    <span className='bg-indigo-500 text-white py-1 px-4 rounded-lg hover:bg-indigo-700'>
+                    <span className='bg-green-500 text-white py-1 px-4 rounded-lg hover:bg-green-700'>
                         Login
                     </span>    
                 </Link>
