@@ -8,8 +8,8 @@ const Recipient = () => {
   return (
     <div className='bg-green-700/70 my-10 rounded-lg py-8 px-4 mx-3'> 
     <div className='text-center'>
-        <h1 className='text-4xl font-bold text-gray-50'>Sign In as a Recipient</h1>
-        <p className='text-base text-gray-50'>Dont have an account? <span><Link href="/auth/signup" passHref><span className='text-yellow-400'> Register</span></Link></span></p>
+        <h1 className='text-4xl font-bold text-yellow-400'>Sign In as a Recipient</h1>
+        <p className='text-sm text-yellow-200/70'>Dont have an account? <span><Link href="/auth/signup" passHref><span className='text-green-400'> Register</span></Link></span></p>
     </div>
     <div className='max-w-[900px] mx-auto py-8'>
         <InputField 
