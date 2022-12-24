@@ -16,7 +16,7 @@ function MobileNavLink({ href, children } : any) {
     return (
       <svg
         aria-hidden="true"
-        className="h-3.5 w-3.5 overflow-visible stroke-yellow-700"
+        className="h-3.5 w-3.5 overflow-visible stroke-yellow-400"
         fill="none"
         strokeWidth={2}
         strokeLinecap="round"
