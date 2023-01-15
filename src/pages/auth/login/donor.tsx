@@ -91,7 +91,7 @@ const Donor = () => {
            onBlur: formik.handleBlur("password"),
          }}
         />
-       <Button variant="primary" className="py-2 my-3" onClick={formik.handleSubmit}>
+       <Button type="submit" variant="primary" className="py-2 my-3" onClick={formik.handleSubmit}>
         Sign In
        </Button>
     </div>
