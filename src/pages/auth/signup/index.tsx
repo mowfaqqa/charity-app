@@ -6,11 +6,10 @@ import { app, database, db } from '../../../lib/firebase';
 import { ref, set } from 'firebase/database';
 import { notifySuccess, notifyError } from '../../../lib/notification'
 import * as yup from "yup";
-import { getAuth } from "firebase/auth";
 import { useFormik } from 'formik';
 import { useRouter } from 'next/router';
-import { useAuth } from '../../../lib/context/authContext';
 import { doc, setDoc } from 'firebase/firestore';
+import { useAuth } from '../../../lib/context/authContext';
 
 const Signup = () => {
   const router = useRouter();
@@ -42,7 +41,7 @@ const Signup = () => {
     const email = values.email;
     const password = values.password
     const name = values.name
-    signUp(email, password,)
+    signUp(email, password)
   .then((userCredential : any) => {
     // Signed in 
     const user = userCredential?.user;
