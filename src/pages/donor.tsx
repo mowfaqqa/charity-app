@@ -1,4 +1,5 @@
 import React from 'react'
+import AppLayout from '../components/AppLayout';
 
 const Donor = () => {
   return (
@@ -7,3 +8,6 @@ const Donor = () => {
 }
 
 export default Donor
+Donor.getLayout = function getLayout(page: React.ReactElement) {
+    return <AppLayout>{page}</AppLayout>;
+  };

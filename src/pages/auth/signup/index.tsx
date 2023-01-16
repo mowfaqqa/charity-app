@@ -1,7 +1,7 @@
 import React from 'react'
 import { AuthLayout } from '../../../components/AuthLayout'
 import Button from '../../../components/Button'
-import { InputField, TextareaField } from '../../../components/InputFields'
+import { InputField, SelectField, TextareaField } from '../../../components/InputFields'
 import { app, database, db } from '../../../lib/firebase';
 import { ref, set } from 'firebase/database';
 import { notifySuccess, notifyError } from '../../../lib/notification'
@@ -96,29 +96,25 @@ const Signup = () => {
            onBlur: formik.handleBlur("name"),
          }}
         />
-        <div className="relative my-5 text-green-400">
-          <p className='text-green-400 text-base'>Role</p>
-            <label htmlFor="role" className="mr-8 text-sm">
-              <input
-                className="mr-2"
-                type="radio"
-                name="role"
-                value="recipient"
-                onChange={formik?.handleChange}
-              />
-              Recipient
-            </label>
-            <label htmlFor="role" className='text-sm'>
-              <input
-                className="mr-2"
-                type="radio"
-                name="role"
-                value="donor"
-                onChange={formik?.handleChange}
-              />
-              Donor
-            </label>
-          </div>
+       <SelectField
+            type="text"
+            id="role"
+            label="role"
+            className="mb-3"
+            error={
+              !!formik?.touched?.role && !!formik?.errors?.role
+            }
+            inputProps={{
+              value: formik?.values?.role,
+              onChange: formik?.handleChange("role"),
+              onBlur: formik?.handleBlur("role"),
+            }}
+            requirement={true}
+          >
+            <option value="null">select role</option>
+            <option value="recipient">Recipient</option>
+            <option value="donor">Donor</option>
+          </SelectField>
         <TextareaField
          required
          id="address"

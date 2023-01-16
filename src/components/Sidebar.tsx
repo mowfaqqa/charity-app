@@ -1,8 +1,10 @@
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import React from 'react'
 import { User, UserPlus, UserMinus, BarChart } from 'react-feather';
 
 const Sidebar = () => {
+  const router = useRouter()
     const navigation = [
         { name: 'Overview', href: '/dashboard', icon: BarChart, current: true },
         { name: 'Donor', href: '/donor', icon: UserPlus, current: false },
