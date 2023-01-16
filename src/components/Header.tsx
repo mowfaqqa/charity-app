@@ -16,7 +16,7 @@ function MobileNavLink({ href, children } : any) {
     return (
       <svg
         aria-hidden="true"
-        className="h-3.5 w-3.5 overflow-visible stroke-yellow-400"
+        className="h-3.5 w-3.5 overflow-visible stroke-yellow-500"
         fill="none"
         strokeWidth={2}
         strokeLinecap="round"
@@ -76,7 +76,7 @@ function MobileNavLink({ href, children } : any) {
               <Link href="/auth/login/donor" passHref><span> login as donor</span> </Link>
               <Link href="/auth/login/recipient" passHref><span> login as recipient</span> </Link>
               <hr className="m-2 border-green-300/40" />
-              <Link href="/login" passHref>Register</Link>
+              <Link href="/auth/signup" passHref>Register</Link>
             </Popover.Panel> 
           </Transition.Child>
         </Transition.Root>
