@@ -1,13 +1,13 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react'
-import { User, UserMinus, BarChart } from 'react-feather';
+import { User, UserPlus, UserMinus, BarChart } from 'react-feather';
 
-const Sidebar = () => {
+const DonorSidebar = () => {
   const router = useRouter()
     const navigation = [
         { name: 'Overview', href: '/dashboard', icon: BarChart, current: true },
-        { name: 'Recipient', href: '/recipient', icon: UserMinus, current: false },
+        { name: 'Donor', href: '/donor', icon: UserPlus, current: false },
         { name: 'Profile', href: '/profile', icon: User, current: false },
     ];
     const classNames = (...classes : any) => {
@@ -52,4 +52,4 @@ const Sidebar = () => {
   )
 }
 
-export default Sidebar
+export default DonorSidebar

@@ -40,7 +40,7 @@ const Recipient = () => {
     // Signed in 
     const user = userCredential.user;
     notifySuccess('User is logged in successfully')
-    router.push('/dashboard');
+    router.push('/recipient/dashboard');
     const dt = new Date()
     update(ref(database, 'users/' + user.uid), {
       last_login : dt

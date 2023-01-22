@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { use } from 'react'
 import { AuthLayout } from '../../../components/AuthLayout'
 import Button from '../../../components/Button'
 import { InputField, SelectField, TextareaField } from '../../../components/InputFields'
@@ -53,7 +53,7 @@ const Signup = () => {
       values
     })
     notifySuccess("Sign up successful")
-    router.push('/dashboard');
+    values.role === "donor" ? router.push('/donor/dashboard') : router.push('/recipient/dashboard')
   })
   .catch((error : any) => {
     const errorMessage = error?.message;
