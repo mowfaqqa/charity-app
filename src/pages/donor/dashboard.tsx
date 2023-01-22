@@ -36,6 +36,9 @@ const Dashboard = () => {
         <CardV2 className="shadow-md border border-green-200 py-3 px-3 grid grid-cols-1">
           <p className="text-4xl mx-3 text-gray-500 font-semibold">{myProfile?.role}</p>
         </CardV2>
+        <CardV2 className="shadow-md border border-green-200 py-3 px-3 grid grid-cols-1">
+          <p className="text-xl mx-3 text-gray-800 font-semibold">{myProfile?.email}</p>
+        </CardV2>
       </div>
       <div className="my-3">
         <h3 className="font-semibold text-lg py-4">Recipient Details</h3>

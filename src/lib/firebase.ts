@@ -7,12 +7,12 @@ import { getAuth } from 'firebase/auth';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyD6P2deuCne8u_Q-Hlk6J98qFoI8rYSf1c",
-  authDomain: "charity-app-dcf71.firebaseapp.com",
-  projectId: "charity-app-dcf71",
-  storageBucket: "charity-app-dcf71.appspot.com",
-  messagingSenderId: "939419285494",
-  appId: "1:939419285494:web:8059836fe594b000e039d7"
+  apiKey: "AIzaSyDSgTMHwapVkPxrSwmtdYQF78YG7LQmY0E",
+  authDomain: "charity-app-f2505.firebaseapp.com",
+  projectId: "charity-app-f2505",
+  storageBucket: "charity-app-f2505.appspot.com",
+  messagingSenderId: "1018795224109",
+  appId: "1:1018795224109:web:5e964cc7b7d2f146eb1ca4"
 };
 
 // Initialize Firebase
