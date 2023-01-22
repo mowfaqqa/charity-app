@@ -25,10 +25,6 @@ const Signup = () => {
       password: "",
       role: "",
       address: "",
-      accountName: "",
-      accountNumber: "",
-      bankName: "",
-      phoneNumber: ""
     },
     validationSchema: yup.object({
       email: yup
@@ -37,11 +33,7 @@ const Signup = () => {
         .required("Email is required")
         .label("Email Address"),
       name: yup.string().required().label("Name"),
-      accountName: yup.string().required().label("Account Name"),
-      accountNumber: yup.string().required().label("Account Number"),
-      phoneNumber: yup.string().required().label("Phone Number"),
       address: yup.string().required().label("Address"),
-      bankName: yup.string().required().label("Bank Name"),
       password: yup
         .string()
         .label("Password")
@@ -68,7 +60,7 @@ const Signup = () => {
           setDoc(doc(db, "USERS", user.uid), {
             ...values,
           });
-          notifySuccess("Sign up successful");
+          notifySuccess("Sign up as Donor successful");
           values.role === "donor"
             ? router.push("/donor/dashboard")
             : router.push("/recipient/dashboard");
@@ -114,20 +106,6 @@ const Signup = () => {
             onBlur: formik.handleBlur("name"),
           }}
         />
-        <InputField
-          required
-          id="phoneNumber"
-          type="text"
-          label="Phone Number"
-          placeholder="e.g 08012453647"
-          error={!!formik.touched.phoneNumber && !!formik.errors.phoneNumber}
-          helperText={!!formik.touched.phoneNumber && formik.errors.phoneNumber}
-          inputProps={{
-            value: formik.values.phoneNumber,
-            onChange: formik.handleChange("phoneNumber"),
-            onBlur: formik.handleBlur("phoneNumber"),
-          }}
-        />
         <SelectField
           type="text"
           id="role"
@@ -142,55 +120,9 @@ const Signup = () => {
           requirement={true}
         >
           <option value="null">select role</option>
-          <option value="recipient">Recipient</option>
           <option value="donor">Donor</option>
+          <option value="recipient" disabled={true}>Recipient</option>
         </SelectField>
-        <InputField
-          required
-          id="accountName"
-          type="text"
-          label="Account Name"
-          placeholder="Enter Account Name"
-          error={!!formik.touched.accountName && !!formik.errors.accountName}
-          helperText={!!formik.touched.accountName && formik.errors.accountName}
-          inputProps={{
-            value: formik.values.accountName,
-            onChange: formik.handleChange("accountName"),
-            onBlur: formik.handleBlur("accountName"),
-          }}
-        />
-        <InputField
-          required
-          id="accountNumber"
-          type="text"
-          label="Account Number"
-          placeholder="Enter Account name"
-          error={
-            !!formik.touched.accountNumber && !!formik.errors.accountNumber
-          }
-          helperText={
-            !!formik.touched.accountNumber && formik.errors.accountNumber
-          }
-          inputProps={{
-            value: formik.values.accountNumber,
-            onChange: formik.handleChange("accountNumber"),
-            onBlur: formik.handleBlur("accountNumber"),
-          }}
-        />
-        <InputField
-          required
-          id="bankName"
-          type="text"
-          label="Bank Name"
-          placeholder="Enter bank name"
-          error={!!formik.touched.bankName && !!formik.errors.bankName}
-          helperText={!!formik.touched.bankName && formik.errors.bankName}
-          inputProps={{
-            value: formik.values.bankName,
-            onChange: formik.handleChange("bankName"),
-            onBlur: formik.handleBlur("bankName"),
-          }}
-        />
         <TextareaField
           required
           id="address"

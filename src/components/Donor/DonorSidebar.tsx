@@ -6,9 +6,9 @@ import { User, UserPlus, UserMinus, BarChart } from 'react-feather';
 const DonorSidebar = () => {
   const router = useRouter()
     const navigation = [
-        { name: 'Overview', href: '/dashboard', icon: BarChart, current: true },
-        { name: 'Donor', href: '/donor', icon: UserPlus, current: false },
-        { name: 'Profile', href: '/profile', icon: User, current: false },
+        { name: 'Overview', href: '/donor/dashboard', icon: BarChart, current: true },
+        // { name: 'Recipient', href: '/donor', icon: UserPlus, current: false },
+        { name: 'Profile', href: '/donor/profile', icon: User, current: false },
     ];
     const classNames = (...classes : any) => {
         return classes.filter(Boolean).join(' ')

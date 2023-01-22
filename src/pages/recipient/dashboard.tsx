@@ -10,7 +10,7 @@ const Dashboard = () => {
   return (
     <div className='px-[61px]'>
         <h1 className='text-3xl my-8 font-bold'>Welcome to your dashboard</h1>
-        <div className='grid grid-cols-2 gap-10'>
+        <div className='grid grid-cols-1 md:grid-cols-2 gap-10'>
             <CardV2 className="shadow-md border border-green-200 py-3 px-3 flex-col">
                 <h1 className='text-2xl flex items-center font-semibold'> <User className='mx-2' size={23}/> Total Donor</h1>
                 <p className='text-4xl px-3 text-gray-500 font-semibold'>40</p>
@@ -18,7 +18,7 @@ const Dashboard = () => {
         </div>
             <div className='my-3'>
                 <h3 className='font-semibold text-lg py-4'>Recipient Details</h3>
-                <div className='grid gap-4 grid-cols-6 border border-gray-200 py-3 px-2 rounded font-medium'>
+                <div className='grid gap-4 grid-cols-3 md:grid-cols-6 border border-gray-200 py-3 px-2 rounded font-medium'>
                     <span>Name</span>
                     <span >Account Number</span>
                     <span >Bank Name</span>
