@@ -7,8 +7,8 @@ import { Home, User, UserMinus, UserPlus, X } from 'react-feather'
 const ResponsiveSideBar = ({sidebarOpen, setSidebarOpen, onClick}: any) => {
     const navigation = [
         { name: 'Overview', href: '/dashboard', icon: Home, current: true },
-        { name: 'Donor', href: '/donor', icon: UserPlus, current: false },
-        { name: 'Recipient', href: '/recipient', icon: UserMinus, current: false },
+        // { name: 'Donor', href: '/donor', icon: UserPlus, current: false },
+        // { name: 'Recipient', href: '/recipient', icon: UserMinus, current: false },
         { name: 'Profile', href: '/profile', icon: User, current: false },
     ];
 

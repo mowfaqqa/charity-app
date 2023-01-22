@@ -15,7 +15,7 @@ import { useRouter } from "next/router";
 import { doc, setDoc } from "firebase/firestore";
 import { useAuth } from "../../../lib/context/authContext";
 
-const DonorSignup = () => {
+const RecipientSignup = () => {
   const router = useRouter();
   const { signUp } = useAuth();
   const formik = useFormik({
@@ -25,6 +25,10 @@ const DonorSignup = () => {
       password: "",
       role: "",
       address: "",
+      accountName: "",
+      accountNumber: "",
+      bankName: "",
+      phoneNumber: ""
     },
     validationSchema: yup.object({
       email: yup
@@ -33,7 +37,11 @@ const DonorSignup = () => {
         .required("Email is required")
         .label("Email Address"),
       name: yup.string().required().label("Name"),
+      accountName: yup.string().required().label("Account Name"),
+      accountNumber: yup.string().required().label("Account Number"),
+      phoneNumber: yup.string().required().label("Phone Number"),
       address: yup.string().required().label("Address"),
+      bankName: yup.string().required().label("Bank Name"),
       password: yup
         .string()
         .label("Password")
@@ -63,7 +71,7 @@ const DonorSignup = () => {
           setDoc(doc(db, "USERS", user.uid, 'profile', "data"), {
             ...values,
           });
-          notifySuccess("Sign up as Donor successful");
+          notifySuccess("Sign up successful");
           values.role === "donor"
             ? router.push("/donor/dashboard")
             : router.push("/recipient/dashboard");
@@ -77,7 +85,7 @@ const DonorSignup = () => {
   return (
     <div className="bg-green-700/70 my-10 rounded-lg py-8 px-4 mx-3">
       <div className="text-center">
-        <h1 className="text-4xl font-bold text-yellow-400">Register as Donor</h1>
+        <h1 className="text-4xl font-bold text-yellow-400">Register as a Recipient</h1>
         {/* <p className='text-sm text-yellow-200'>have an account? <span><Link href="/auth/signup" passHref><span className='text-green-400'> Login</span></Link></span></p> */}
       </div>
       <div className="max-w-[1200px] mx-auto py-8">
@@ -109,6 +117,20 @@ const DonorSignup = () => {
             onBlur: formik.handleBlur("name"),
           }}
         />
+        <InputField
+          required
+          id="phoneNumber"
+          type="text"
+          label="Phone Number"
+          placeholder="e.g 08012453647"
+          error={!!formik.touched.phoneNumber && !!formik.errors.phoneNumber}
+          helperText={!!formik.touched.phoneNumber && formik.errors.phoneNumber}
+          inputProps={{
+            value: formik.values.phoneNumber,
+            onChange: formik.handleChange("phoneNumber"),
+            onBlur: formik.handleBlur("phoneNumber"),
+          }}
+        />
         <SelectField
           type="text"
           id="role"
@@ -123,9 +145,55 @@ const DonorSignup = () => {
           requirement={true}
         >
           <option value="null">select role</option>
-          <option value="donor">Donor</option>
-          <option value="recipient" disabled={true}>Recipient</option>
+          <option value="recipient">Recipient</option>
+          <option value="donor"disabled={true}>Donor</option>
         </SelectField>
+        <InputField
+          required
+          id="accountName"
+          type="text"
+          label="Account Name"
+          placeholder="Enter Account Name"
+          error={!!formik.touched.accountName && !!formik.errors.accountName}
+          helperText={!!formik.touched.accountName && formik.errors.accountName}
+          inputProps={{
+            value: formik.values.accountName,
+            onChange: formik.handleChange("accountName"),
+            onBlur: formik.handleBlur("accountName"),
+          }}
+        />
+        <InputField
+          required
+          id="accountNumber"
+          type="text"
+          label="Account Number"
+          placeholder="Enter Account name"
+          error={
+            !!formik.touched.accountNumber && !!formik.errors.accountNumber
+          }
+          helperText={
+            !!formik.touched.accountNumber && formik.errors.accountNumber
+          }
+          inputProps={{
+            value: formik.values.accountNumber,
+            onChange: formik.handleChange("accountNumber"),
+            onBlur: formik.handleBlur("accountNumber"),
+          }}
+        />
+        <InputField
+          required
+          id="bankName"
+          type="text"
+          label="Bank Name"
+          placeholder="Enter bank name"
+          error={!!formik.touched.bankName && !!formik.errors.bankName}
+          helperText={!!formik.touched.bankName && formik.errors.bankName}
+          inputProps={{
+            value: formik.values.bankName,
+            onChange: formik.handleChange("bankName"),
+            onBlur: formik.handleBlur("bankName"),
+          }}
+        />
         <TextareaField
           required
           id="address"
@@ -167,8 +235,8 @@ const DonorSignup = () => {
   );
 };
 
-export default DonorSignup;
+export default RecipientSignup;
 
-DonorSignup.getLayout = function getLayout(page: React.ReactElement) {
+RecipientSignup.getLayout = function getLayout(page: React.ReactElement) {
   return <AuthLayout>{page}</AuthLayout>;
 };

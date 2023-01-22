@@ -2,13 +2,15 @@ import { Dialog, Transition } from '@headlessui/react'
 import Link from 'next/link';
 import React from 'react'
 import { Home, User, UserMinus, UserPlus, X } from 'react-feather'
+import { useRouter } from 'next/router';
 
 
 const ResponsiveSideBar = ({sidebarOpen, setSidebarOpen, onClick}: any) => {
+    const router = useRouter()
     const navigation = [
-        { name: 'Overview', href: '/dashboard', icon: Home, current: true },
-        { name: 'Recipient', href: '/recipient', icon: UserMinus, current: false },
-        { name: 'Profile', href: '/profile', icon: User, current: false },
+        { name: 'Overview', href: '/donor/dashboard', icon: Home},
+        // { name: 'Recipient', href: '/donor/recipient', icon: UserMinus, current: false },
+        { name: 'Profile', href: '/donor/profile', icon: User },
     ];
 
     const classNames = (...classes : any) => {
@@ -74,7 +76,8 @@ const ResponsiveSideBar = ({sidebarOpen, setSidebarOpen, onClick}: any) => {
                  <h1 className='text-4xl font-bold text-yellow-500 mb-6'><span className='text-green-500'>Charity</span>App</h1>
                 {navigation.map((item) => (
                   <div key={item.name} className={classNames(
-                    item.current ? 'bg-yellow-300 text-green-800' : 'text-yellow-400 hover:bg-yellow-300 hover:text-green-800',
+                    router.asPath === item.href
+                    ? 'bg-yellow-300 text-green-800' : 'text-yellow-400 hover:bg-yellow-300 hover:text-green-800',
                     'group flex items-center px-2 py-2 text-base font-medium rounded-md'
                   )}>
                     <Link href={item.href} passHref>

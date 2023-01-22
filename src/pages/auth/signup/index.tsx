@@ -15,7 +15,7 @@ import { useRouter } from "next/router";
 import { doc, setDoc } from "firebase/firestore";
 import { useAuth } from "../../../lib/context/authContext";
 
-const Signup = () => {
+const SignUp = () => {
   const router = useRouter();
   const { signUp } = useAuth();
   const formik = useFormik({
@@ -28,7 +28,7 @@ const Signup = () => {
       accountName: "",
       accountNumber: "",
       bankName: "",
-      phoneNumber: ""
+      phoneNumber: "",
     },
     validationSchema: yup.object({
       email: yup
@@ -82,158 +82,40 @@ const Signup = () => {
   return (
     <div className="bg-green-700/70 my-10 rounded-lg py-8 px-4 mx-3">
       <div className="text-center">
-        <h1 className="text-4xl font-bold text-yellow-400">Register</h1>
-        {/* <p className='text-sm text-yellow-200'>have an account? <span><Link href="/auth/signup" passHref><span className='text-green-400'> Login</span></Link></span></p> */}
+        <h1 className="text-4xl font-bold text-yellow-400">
+          Join Our Platform
+        </h1>
       </div>
-      <div className="max-w-[1200px] mx-auto py-8">
-        <InputField
-          required
-          id="email"
-          type="email"
-          label="Email Address"
-          placeholder="Enter your email address"
-          error={!!formik.touched.email && !!formik.errors.email}
-          helperText={!!formik.touched.email && formik.errors.email}
-          inputProps={{
-            value: formik.values.email,
-            onChange: formik.handleChange("email"),
-            onBlur: formik.handleBlur("email"),
-          }}
-        />
-        <InputField
-          required
-          id="name"
-          type="text"
-          label="Name"
-          placeholder="Enter full name"
-          error={!!formik.touched.name && !!formik.errors.name}
-          helperText={!!formik.touched.name && formik.errors.name}
-          inputProps={{
-            value: formik.values.name,
-            onChange: formik.handleChange("name"),
-            onBlur: formik.handleBlur("name"),
-          }}
-        />
-        <InputField
-          required
-          id="phoneNumber"
-          type="text"
-          label="Phone Number"
-          placeholder="e.g 08012453647"
-          error={!!formik.touched.phoneNumber && !!formik.errors.phoneNumber}
-          helperText={!!formik.touched.phoneNumber && formik.errors.phoneNumber}
-          inputProps={{
-            value: formik.values.phoneNumber,
-            onChange: formik.handleChange("phoneNumber"),
-            onBlur: formik.handleBlur("phoneNumber"),
-          }}
-        />
-        <SelectField
-          type="text"
-          id="role"
-          label="role"
-          className="mb-3"
-          error={!!formik?.touched?.role && !!formik?.errors?.role}
-          inputProps={{
-            value: formik?.values?.role,
-            onChange: formik?.handleChange("role"),
-            onBlur: formik?.handleBlur("role"),
-          }}
-          requirement={true}
-        >
-          <option value="null">select role</option>
-          <option value="recipient">Recipient</option>
-          <option value="donor">Donor</option>
-        </SelectField>
-        <InputField
-          required
-          id="accountName"
-          type="text"
-          label="Account Name"
-          placeholder="Enter Account Name"
-          error={!!formik.touched.accountName && !!formik.errors.accountName}
-          helperText={!!formik.touched.accountName && formik.errors.accountName}
-          inputProps={{
-            value: formik.values.accountName,
-            onChange: formik.handleChange("accountName"),
-            onBlur: formik.handleBlur("accountName"),
-          }}
-        />
-        <InputField
-          required
-          id="accountNumber"
-          type="text"
-          label="Account Number"
-          placeholder="Enter Account name"
-          error={
-            !!formik.touched.accountNumber && !!formik.errors.accountNumber
-          }
-          helperText={
-            !!formik.touched.accountNumber && formik.errors.accountNumber
-          }
-          inputProps={{
-            value: formik.values.accountNumber,
-            onChange: formik.handleChange("accountNumber"),
-            onBlur: formik.handleBlur("accountNumber"),
-          }}
-        />
-        <InputField
-          required
-          id="bankName"
-          type="text"
-          label="Bank Name"
-          placeholder="Enter bank name"
-          error={!!formik.touched.bankName && !!formik.errors.bankName}
-          helperText={!!formik.touched.bankName && formik.errors.bankName}
-          inputProps={{
-            value: formik.values.bankName,
-            onChange: formik.handleChange("bankName"),
-            onBlur: formik.handleBlur("bankName"),
-          }}
-        />
-        <TextareaField
-          required
-          id="address"
-          type="address"
-          label="Address"
-          placeholder="Enter a detailed Address"
-          error={!!formik.touched.address && !!formik.errors.address}
-          helperText={!!formik.touched.address && formik.errors.address}
-          inputProps={{
-            value: formik.values.address,
-            onChange: formik.handleChange("address"),
-            onBlur: formik.handleBlur("address"),
-          }}
-        />
-        <InputField
-          required
-          id="password"
-          type="password"
-          label="Password"
-          placeholder="Enter password"
-          error={!!formik.touched.password && !!formik.errors.password}
-          helperText={!!formik.touched.password && formik.errors.password}
-          inputProps={{
-            value: formik.values.password,
-            onChange: formik.handleChange("password"),
-            onBlur: formik.handleBlur("password"),
-          }}
-        />
+      <div className="max-w-[1200px] mx-auto py-8 text-center">
+        <p className="text-yellow-400 text-base font-medium">
+          Register as either a donor to and donate to the need or a recipient
+          who is in need of assistance
+        </p>
+        <div className="">
         <Button
           variant="primary"
           type="submit"
-          className="py-2 my-3"
-          onClick={formik.handleSubmit}
-        >
-          Sign Up
+          className="py-2 m-3"
+          onClick={() => router.push("/auth/signup/donor")}
+          >
+          Sign Up as Donor
         </Button>
+        <Button
+          variant="primary"
+          type="submit"
+          className="py-2 m-3"
+          onClick={() => router.push("/auth/signup/recipient")}
+          >
+          Sign Up as Recipient
+        </Button>
+            </div>
       </div>
     </div>
   );
 };
 
-export default Signup;
+export default SignUp;
 
-Signup.getLayout = function getLayout(page: React.ReactElement) {
+SignUp.getLayout = function getLayout(page: React.ReactElement) {
   return <AuthLayout>{page}</AuthLayout>;
 };

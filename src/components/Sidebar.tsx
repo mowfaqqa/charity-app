@@ -10,10 +10,9 @@ const Sidebar = () => {
       name: "Overview",
       href: "/recipient/dashboard",
       icon: BarChart,
-      current: true,
     },
     // { name: "Donor", href: "/recipient", icon: UserMinus, current: false },
-    { name: "Profile", href: "/recipient/profile", icon: User, current: false },
+    { name: "Profile", href: "/recipient/profile", icon: User},
   ];
   const classNames = (...classes: any) => {
     return classes.filter(Boolean).join(" ");
@@ -40,7 +39,7 @@ const Sidebar = () => {
               <Link key={item.name} href={item.href}>
                 <span
                   className={classNames(
-                    item.current
+                    router.asPath === item.href
                       ? "bg-yellow-300 text-green-800"
                       : "text-yellow-400 hover:bg-yellow-300 hover:text-green-800",
                     "group flex items-center px-2 py-2 my-3 text-sm font-medium rounded-md"
