@@ -28,7 +28,8 @@ const RecipientSignup = () => {
       accountName: "",
       accountNumber: "",
       bankName: "",
-      phoneNumber: ""
+      phoneNumber: "",
+      details: "",
     },
     validationSchema: yup.object({
       email: yup
@@ -39,6 +40,7 @@ const RecipientSignup = () => {
       name: yup.string().required().label("Name"),
       accountName: yup.string().required().label("Account Name"),
       accountNumber: yup.string().required().label("Account Number"),
+      details: yup.string().required().label("Why do you need the charity"),
       phoneNumber: yup.string().required().label("Phone Number"),
       address: yup.string().required().label("Address"),
       bankName: yup.string().required().label("Bank Name"),
@@ -66,10 +68,10 @@ const RecipientSignup = () => {
             email: email,
           });
           setDoc(doc(db, "USERS", user.uid), {
-            ...values,
+            ...values, status: "pending"
           });
           setDoc(doc(db, "USERS", user.uid, 'profile', "data"), {
-            ...values,
+            ...values, status: "pending"
           });
           notifySuccess("Sign up successful");
           values.role === "donor"
@@ -160,6 +162,20 @@ const RecipientSignup = () => {
             value: formik.values.accountName,
             onChange: formik.handleChange("accountName"),
             onBlur: formik.handleBlur("accountName"),
+          }}
+        />
+        <TextareaField
+          required
+          id="details"
+          type="text"
+          label="Why do you need the charity"
+          placeholder="Enter your reason here"
+          error={!!formik.touched.details && !!formik.errors.details}
+          helperText={!!formik.touched.details && formik.errors.details}
+          inputProps={{
+            value: formik.values.details,
+            onChange: formik.handleChange("details"),
+            onBlur: formik.handleBlur("details"),
           }}
         />
         <InputField

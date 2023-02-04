@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
-import { User, UserMinus, BarChart } from "react-feather";
+import { User, BarChart } from "react-feather";
 
 const Sidebar = () => {
   const router = useRouter();
