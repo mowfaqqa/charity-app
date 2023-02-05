@@ -6,9 +6,13 @@ import DonorLayout from "../../components/Donor/DonorLayout";
 import { collection, getDocs } from "firebase/firestore";
 import EmptyState from "../../components/EmptyState";
 import { Disclosure } from "@headlessui/react";
+import Button4 from "../../components/Button";
+import { useRouter } from 'next/router';
+import Dialog from "../../components/Dialog";
 
 const Dashboard = () => {
   const user = auth.currentUser;
+  const router = useRouter()
   const [recipient, setRecipient] = React.useState<any>([]);
   const [myProfile, setMyProfile] = React.useState<any>();
   React.useEffect(() => {
@@ -37,9 +41,18 @@ const Dashboard = () => {
   };
   return (
     <div className="px-[61px]">
+      <div className="flex flex-col md:flex-row md:justify-between items-center my-4">
       <h1 className="text-3xl my-8 font-bold">
         Welcome to your dashboard, {myProfile?.name}
       </h1>
+      <div>
+        <Button4 variant="primary" onClick={() => {
+          router.push('/donor/dashboard/?foundation_donation=true')
+        }}>
+          Donate to the foundation
+        </Button4>
+      </div>
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
         <CardV2 className="shadow-md border border-green-200 py-3 px-3 grid grid-cols-1">
           <p className="text-4xl mx-3 text-gray-500 font-semibold">
@@ -115,6 +128,40 @@ const Dashboard = () => {
           </>
         ))}
       </div>
+      {router.query.foundation_donation && (
+        <Dialog
+        variant="scroll"
+        open={false}
+        onClose={() => router.push('/donor/dashboard')}
+        >
+          <div className="inline-block rounded-lg px-4 pt-5 pb-4 text-center">
+            <h1 className=" mb-7 text-2xl leading-9 font-semibold text-gray-900 mx-1">Send Your Donations to This Account Below</h1>
+            <div>
+                <span className=" mb-7 text-xl leading-9 font-semibold text-gray-900 mx-1">
+                    Account Name :
+                  </span>
+                  <span className="text-xl font-normal">Charity App</span>
+            </div>
+            <div>
+                <span className=" mb-7 text-xl leading-9 font-semibold text-gray-900 mx-1">
+                    Account Number:
+                  </span>
+                  <span className="text-xl font-normal">000000000</span>
+            </div>
+            <div>
+                <span className=" mb-7 text-xl leading-9 font-semibold text-gray-900 mx-1">
+                    Bank Name :
+                  </span>
+                  <span className="text-xl font-normal">First Bank</span>
+            </div>
+                  <div className="flex justify-center gap-3">
+                    <Button4 className="border border-gray-400 mt-4" onClick={() => router.back()}>
+                      Cancel
+                    </Button4>
+                  </div>
+                </div>
+        </Dialog>
+      )}
     </div>
   );
 };
