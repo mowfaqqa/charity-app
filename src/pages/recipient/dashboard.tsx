@@ -26,7 +26,13 @@ const Dashboard = () => {
         <div className='grid grid-cols-1 md:grid-cols-2 gap-10'>
             <CardV2 className="shadow-md border border-green-200 py-3 px-3 flex-col">
                 <h1 className='text-2xl flex items-center font-semibold'> <User className='mx-2' size={23}/> {myProfile?.role}</h1>
-                <p className='text-4xl px-3 text-gray-500 font-semibold'></p>
+            </CardV2>
+            <CardV2 className="shadow-md border border-green-200 py-3 px-3 flex-col">
+                {myProfile?.status === "pending" ? (
+                    <h1 className='text-2xl flex text-yellow-500 items-center font-semibold'> Status : {myProfile?.status}</h1>
+                ) : (
+                    <h1 className='text-2xl text-green-500 flex items-center font-semibold'> Status : {myProfile?.status}</h1> 
+                )}
             </CardV2>
         </div>
                 <h3 className='font-semibold text-lg py-4'>Recipient Details</h3>
@@ -54,6 +60,10 @@ const Dashboard = () => {
                 <CardV2 className="grid gap-6 grid-cols-1 px-3 border border-gray-300 rounded-md text-sm">
                     <span className='text-xl font-semibold'>Bank Name</span>
                     <span >{myProfile?.bankName}</span>
+                </CardV2>
+                <CardV2 className="grid gap-6 grid-cols-1 px-3 border border-gray-300 rounded-md text-sm">
+                    <span className='text-xl font-semibold'>Type Of Support</span>
+                    <span >{myProfile?.typeOfSupport}</span>
                 </CardV2>
             </div>
     </div>
