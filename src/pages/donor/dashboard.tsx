@@ -56,15 +56,19 @@ const Dashboard = () => {
         .email()
         .required("Email is required")
         .label("Email Address"),
-      pickupLocation: yup.string().required().label("Pickup Location"),
-      phoneNumber: yup.string().required().label("Phone Number"),
-      dateTime: yup.string().required().label("Date and Time for Pick Up"),
+      pickupLocation: yup.string().required(),
+      phoneNumber: yup.string().required(),
     }),
     onSubmit: (values) => {
+      console.log(values);
       requestPickup({
         ...values,
       })
-        .then(() => notifySuccess("Pick up request sent successfully"))
+        .then(() => {
+          notifySuccess("Pick up request sent successfully");
+          router.push("/donor/dashboard");
+          formik.resetForm();
+        })
         .catch(() =>
           notifyError("An error occured while sending pick up request")
         );
@@ -82,7 +86,7 @@ const Dashboard = () => {
         <div>
           <Button4
             variant="primary"
-            className="mx-3"
+            className="my-3 mx-3 md:my-0"
             onClick={() => {
               router.push("/donor/dashboard/?donation_pickup=true");
             }}
@@ -281,7 +285,6 @@ const Dashboard = () => {
                 id="dataTime"
                 type="datetime-local"
                 label="Date and Time for Pick Up"
-                placeholder="Enter your phone number"
                 error={!!formik.touched.dataTime && !!formik.errors.dataTime}
                 helperText={!!formik.touched.dataTime && formik.errors.dataTime}
                 inputProps={{
@@ -294,14 +297,18 @@ const Dashboard = () => {
             <div className="flex justify-center items-center gap-3">
               <Button4
                 className="border border-gray-400 mt-4"
-                onClick={() => router.back()}
+                onClick={() => {
+                  router.back();
+                  formik.resetForm();
+                }}
               >
                 Cancel
               </Button4>
               <Button4
                 variant="primary"
+                type="submit"
                 className="mt-4"
-                onClick={formik.handleSubmit}
+                onClick={formik?.handleSubmit}
               >
                 Send Request
               </Button4>
