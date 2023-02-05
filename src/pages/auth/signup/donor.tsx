@@ -41,8 +41,8 @@ const DonorSignup = () => {
         .max(32)
         .required()
         .matches(
-          /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
-          "Must Contain atleast 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"
+          /^(?=.*[0-9])(?=.{8,})/,
+          "Password Contain atleast 8 Numbers"
         ),
     }),
     onSubmit: (values) => {

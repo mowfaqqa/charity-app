@@ -30,7 +30,7 @@ const RecipientSignup = () => {
       bankName: "",
       phoneNumber: "",
       details: "",
-      typeOfSupport: ""
+      typeOfSupport: "",
     },
     validationSchema: yup.object({
       email: yup
@@ -51,10 +51,7 @@ const RecipientSignup = () => {
         .min(8)
         .max(32)
         .required()
-        .matches(
-          /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
-          "Must Contain atleast 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"
-        ),
+        .matches(/^(?=.*[0-9])(?=.{8,})/, "Password Contain atleast 8 Numbers"),
     }),
     onSubmit: (values) => {
       const email = values.email;
@@ -69,10 +66,12 @@ const RecipientSignup = () => {
             email: email,
           });
           setDoc(doc(db, "USERS", user.uid), {
-            ...values, status: "pending"
+            ...values,
+            status: "pending",
           });
-          setDoc(doc(db, "USERS", user.uid, 'profile', "data"), {
-            ...values, status: "pending"
+          setDoc(doc(db, "USERS", user.uid, "profile", "data"), {
+            ...values,
+            status: "pending",
           });
           notifySuccess("Sign up successful");
           values.role === "donor"
@@ -88,7 +87,9 @@ const RecipientSignup = () => {
   return (
     <div className="bg-green-700/70 my-10 rounded-lg py-8 px-4 mx-3">
       <div className="text-center">
-        <h1 className="text-4xl font-bold text-yellow-400">Register as a Recipient</h1>
+        <h1 className="text-4xl font-bold text-yellow-400">
+          Register as a Recipient
+        </h1>
         {/* <p className='text-sm text-yellow-200'>have an account? <span><Link href="/auth/signup" passHref><span className='text-green-400'> Login</span></Link></span></p> */}
       </div>
       <div className="max-w-[1200px] mx-auto py-8">
@@ -149,14 +150,18 @@ const RecipientSignup = () => {
         >
           <option value="null">select role</option>
           <option value="recipient">Recipient</option>
-          <option value="donor"disabled={true}>Donor</option>
+          <option value="donor" disabled={true}>
+            Donor
+          </option>
         </SelectField>
         <SelectField
           type="text"
           id="typeOfSupport"
           label="Type of Support"
           className="mb-3"
-          error={!!formik?.touched?.typeOfSupport && !!formik?.errors?.typeOfSupport}
+          error={
+            !!formik?.touched?.typeOfSupport && !!formik?.errors?.typeOfSupport
+          }
           inputProps={{
             value: formik?.values?.typeOfSupport,
             onChange: formik?.handleChange("typeOfSupport"),
