@@ -30,6 +30,7 @@ const RecipientSignup = () => {
       bankName: "",
       phoneNumber: "",
       details: "",
+      typeOfSupport: ""
     },
     validationSchema: yup.object({
       email: yup
@@ -149,6 +150,25 @@ const RecipientSignup = () => {
           <option value="null">select role</option>
           <option value="recipient">Recipient</option>
           <option value="donor"disabled={true}>Donor</option>
+        </SelectField>
+        <SelectField
+          type="text"
+          id="typeOfSupport"
+          label="Type of Support"
+          className="mb-3"
+          error={!!formik?.touched?.typeOfSupport && !!formik?.errors?.typeOfSupport}
+          inputProps={{
+            value: formik?.values?.typeOfSupport,
+            onChange: formik?.handleChange("typeOfSupport"),
+            onBlur: formik?.handleBlur("typeOfSupport"),
+          }}
+          requirement={true}
+        >
+          <option value="null">select support type</option>
+          <option value="medicine">Medicine</option>
+          <option value="food">Food</option>
+          <option value="clothes">Clothes</option>
+          <option value="money">Money</option>
         </SelectField>
         <InputField
           required
