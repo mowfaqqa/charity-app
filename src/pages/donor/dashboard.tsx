@@ -215,9 +215,10 @@ const Dashboard = () => {
                           variant="primary"
                           onClick={() => {
                             markRecipientAsResolved(user.id)
-                              .then(() =>
-                                notifySuccess("Recipient has been resolved")
-                              )
+                              .then(() => {
+                                notifySuccess("Recipient has been resolved");
+                                router.back();
+                              })
                               .catch(() =>
                                 notifyError("Error marking recipient")
                               );
