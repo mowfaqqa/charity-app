@@ -3,7 +3,13 @@ import { CardV2 } from "../../components/Card";
 import { MinusCircle, PlusCircle, User } from "react-feather";
 import { auth, db } from "../../lib/firebase";
 import DonorLayout from "../../components/Donor/DonorLayout";
-import { collection, doc, getDocs, setDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDocs,
+  setDoc,
+  updateDoc,
+} from "firebase/firestore";
 import EmptyState from "../../components/EmptyState";
 import { Disclosure } from "@headlessui/react";
 import Button4 from "../../components/Button";
@@ -21,6 +27,9 @@ const Dashboard = () => {
   const [myProfile, setMyProfile] = React.useState<any>();
   const requestPickup = async (values: any) => {
     await setDoc(doc(db, "USERS", user?.uid!, "pickup", "data"), values);
+  };
+  const markRecipientAsResolved = async (id: any) => {
+    await updateDoc(doc(db, "USERS", id), { status: "resolved" });
   };
   React.useEffect(() => {
     const getRecipientData = async () => {
@@ -60,7 +69,6 @@ const Dashboard = () => {
       phoneNumber: yup.string().required(),
     }),
     onSubmit: (values) => {
-      console.log(values);
       requestPickup({
         ...values,
       })
@@ -74,6 +82,7 @@ const Dashboard = () => {
         );
     },
   });
+  console.log(recipient);
   const classNames = (...classes: string[]) => {
     return classes.filter(Boolean).join(" ");
   };
@@ -166,13 +175,61 @@ const Dashboard = () => {
                         </Disclosure.Button>
                       </dt>
                       <Disclosure.Panel as="dd" className="mt-2 pr-12">
-                        <p className="text-sm font-light text-gray-500">
-                          {user.details}
-                        </p>
+                        <div className="flex flex-col md:flex-row justify-between items-start">
+                          <p className="text-sm font-light mb-3 md:mb-0 text-gray-500">
+                            {user.details}
+                          </p>
+                          <Button4
+                            variant="primary"
+                            className="text-xs md:text-sm px-6 py-1 md:py-2"
+                            onClick={() =>
+                              router.push(
+                                "/donor/dashboard/?resolve_recipient=true"
+                              )
+                            }
+                          >
+                            Mark as Resolved
+                          </Button4>
+                        </div>
                       </Disclosure.Panel>
                     </>
                   )}
                 </Disclosure>
+                {router.query.resolve_recipient && (
+                  <Dialog
+                    variant="scroll"
+                    open={false}
+                    onClose={() => router.push("/donor/dashboard")}
+                  >
+                    <div className="inline-block rounded-lg px-4 pt-5 pb-4 text-center">
+                      <h1 className=" mb-7 text-3xl leading-9 font-semibold text-gray-900 mx-1">
+                        Are you this Recipient&apos;s issues has been Resolved ?
+                      </h1>
+                      <div className="flex mt-4 items-center justify-center gap-3">
+                        <Button4
+                          className="border border-gray-400"
+                          onClick={() => router.back()}
+                        >
+                          Cancel
+                        </Button4>
+                        <Button4
+                          variant="primary"
+                          onClick={() => {
+                            markRecipientAsResolved(user.id)
+                              .then(() =>
+                                notifySuccess("Recipient has been resolved")
+                              )
+                              .catch(() =>
+                                notifyError("Error marking recipient")
+                              );
+                          }}
+                        >
+                          Yes, Resolved
+                        </Button4>
+                      </div>
+                    </div>
+                  </Dialog>
+                )}
               </div>
             )}
           </>
@@ -217,6 +274,7 @@ const Dashboard = () => {
           </div>
         </Dialog>
       )}
+
       {router.query.donation_pickup && (
         <Dialog
           variant="scroll"
