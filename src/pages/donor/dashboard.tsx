@@ -82,7 +82,6 @@ const Dashboard = () => {
         );
     },
   });
-  console.log(recipient);
   const classNames = (...classes: string[]) => {
     return classes.filter(Boolean).join(" ");
   };
