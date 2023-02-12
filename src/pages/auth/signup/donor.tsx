@@ -35,15 +35,10 @@ const DonorSignup = () => {
       name: yup.string().required().label("Name"),
       address: yup.string().required().label("Address"),
       password: yup
-        .string()
+        .number()
         .label("Password")
-        .min(8)
-        .max(32)
-        .required()
-        .matches(
-          /^(?=.*[0-9])(?=.{8,})/,
-          "Password Contain atleast 8 Numbers"
-        ),
+        .required("Password must be a number")
+      ,
     }),
     onSubmit: (values) => {
       const email = values.email;
@@ -71,7 +66,7 @@ const DonorSignup = () => {
         .catch((error: any) => {
           const errorMessage = error?.message;
           notifyError(errorMessage);
-        });
+      });
     },
   });
   return (

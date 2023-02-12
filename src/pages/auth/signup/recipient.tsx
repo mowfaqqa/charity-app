@@ -46,12 +46,9 @@ const RecipientSignup = () => {
       address: yup.string().required().label("Address"),
       bankName: yup.string().required().label("Bank Name"),
       password: yup
-        .string()
+        .number()
         .label("Password")
-        .min(8)
-        .max(32)
-        .required()
-        .matches(/^(?=.*[0-9])(?=.{8,})/, "Password Contain atleast 8 Numbers"),
+        .required("Password Contain atleast 8 Numbers"),
     }),
     onSubmit: (values) => {
       const email = values.email;
