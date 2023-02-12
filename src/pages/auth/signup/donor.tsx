@@ -52,10 +52,10 @@ const DonorSignup = () => {
             name: name,
             email: email,
           });
-          setDoc(doc(db, "USERS", user.uid), {
+          setDoc(doc(db, "USERS", "Donor", user.uid), {
             ...values,
           });
-          setDoc(doc(db, "USERS", user.uid, 'profile', "data"), {
+          setDoc(doc(db, "USERS", "Donor", user.uid, 'profile'), {
             ...values,
           });
           notifySuccess("Sign up as Donor successful");

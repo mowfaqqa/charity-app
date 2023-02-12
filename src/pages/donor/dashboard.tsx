@@ -4,6 +4,7 @@ import { MinusCircle, PlusCircle, User } from "react-feather";
 import { auth, db } from "../../lib/firebase";
 import DonorLayout from "../../components/Donor/DonorLayout";
 import {
+  arrayUnion,
   collection,
   doc,
   getDocs,
@@ -26,7 +27,7 @@ const Dashboard = () => {
   const [recipient, setRecipient] = React.useState<any>([]);
   const [myProfile, setMyProfile] = React.useState<any>();
   const requestPickup = async (values: any) => {
-    await setDoc(doc(db, "USERS", user?.uid!, "pickup", "data"), values);
+    await updateDoc(doc(db, "PickUp", user?.uid!), values);
   };
   const markRecipientAsResolved = async (id: any) => {
     await updateDoc(doc(db, "USERS", id), { status: "resolved" });
@@ -70,7 +71,7 @@ const Dashboard = () => {
     }),
     onSubmit: (values) => {
       requestPickup({
-        ...values,
+         ...values, status: "pending"        
       })
         .then(() => {
           notifySuccess("Pick up request sent successfully");
