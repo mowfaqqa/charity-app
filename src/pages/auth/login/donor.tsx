@@ -22,15 +22,10 @@ const Donor = () => {
     validationSchema : yup.object({
       email: yup.string().email().required("Email is required").label("Email Address"),
       password: yup
-      .string()
-      .label("Password")
-      .min(8)
-      .max(32)
-      .required()
-      .matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
-        "Must Contain atleast 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"
-      ),
+        .number()
+        .label("Password")
+        .required("Password must be a number")
+      ,
   }),
   onSubmit: (values) => {
     const email = values.email;
