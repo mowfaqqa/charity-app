@@ -35,7 +35,7 @@ const Dashboard = () => {
         <CardV2 className="shadow-md border border-green-200 py-3 px-3 flex-col">
           <h1 className="text-2xl flex text-blue-500 items-center font-semibold">
             {" "}
-            Status : {myProfile?.status}
+            Status : {myProfile?.status!}
           </h1>
         </CardV2>
       </div>
