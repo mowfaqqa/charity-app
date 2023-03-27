@@ -22,8 +22,8 @@ const RecipientSignup = () => {
     initialValues: {
       name: "",
       email: "",
-      password: "",
-      role: "",
+      newPassword: "",
+      role: "recipient",
       address: "",
       accountName: "",
       accountNumber: "",
@@ -31,6 +31,7 @@ const RecipientSignup = () => {
       phoneNumber: "",
       details: "",
       typeOfSupport: "",
+      confirmPassword: "",
     },
     validationSchema: yup.object({
       email: yup
@@ -38,21 +39,44 @@ const RecipientSignup = () => {
         .email()
         .required("Email is required")
         .label("Email Address"),
-      name: yup.string().required().label("Name"),
-      accountName: yup.string().required().label("Account Name"),
-      accountNumber: yup.string().required().label("Account Number"),
+      name: yup
+        .string()
+        .required()
+        .label("Name")
+        .matches(/^[a-zA-Z]+$/, " name must not include numbers"),
+      accountName: yup
+        .string()
+        .required()
+        .label("Account Name")
+        .matches(/^[0-9]+$/, "account name must not include numbers"),
+      accountNumber: yup
+        .number()
+        .required()
+        .label("Account Number")
+        .max(9999999999, "Account number must be 10 digits"),
       details: yup.string().required().label("Why do you need the charity"),
-      phoneNumber: yup.string().required().label("Phone Number"),
+      phoneNumber: yup
+        .string()
+        .required()
+        .label("Phone Number")
+        .max(11)
+        .matches(
+          /^[0-9]+$/,
+          "phone number must not include charaters  or letters"
+        ),
       address: yup.string().required().label("Address"),
       bankName: yup.string().required().label("Bank Name"),
-      password: yup
+      newPassword: yup
         .number()
         .label("Password")
         .required("Password Contain atleast 8 Numbers"),
+      confirmPassword: yup
+        .string()
+        .oneOf([yup.ref("newPassword"), null], "Passwords must match"),
     }),
     onSubmit: (values) => {
       const email = values.email;
-      const password = values.password;
+      const password = values.newPassword;
       const name = values.name;
       signUp(email, password)
         .then((userCredential: any) => {
@@ -132,46 +156,6 @@ const RecipientSignup = () => {
             onBlur: formik.handleBlur("phoneNumber"),
           }}
         />
-        <SelectField
-          type="text"
-          id="role"
-          label="role"
-          className="mb-3"
-          error={!!formik?.touched?.role && !!formik?.errors?.role}
-          inputProps={{
-            value: formik?.values?.role,
-            onChange: formik?.handleChange("role"),
-            onBlur: formik?.handleBlur("role"),
-          }}
-          requirement={true}
-        >
-          <option value="null">select role</option>
-          <option value="recipient">Recipient</option>
-          <option value="donor" disabled={true}>
-            Donor
-          </option>
-        </SelectField>
-        <SelectField
-          type="text"
-          id="typeOfSupport"
-          label="Type of Support"
-          className="mb-3"
-          error={
-            !!formik?.touched?.typeOfSupport && !!formik?.errors?.typeOfSupport
-          }
-          inputProps={{
-            value: formik?.values?.typeOfSupport,
-            onChange: formik?.handleChange("typeOfSupport"),
-            onBlur: formik?.handleBlur("typeOfSupport"),
-          }}
-          requirement={true}
-        >
-          <option value="null">select support type</option>
-          <option value="medicine">Medicine</option>
-          <option value="food">Food</option>
-          <option value="clothes">Clothes</option>
-          <option value="money">Money</option>
-        </SelectField>
         <InputField
           required
           id="accountName"
@@ -184,20 +168,6 @@ const RecipientSignup = () => {
             value: formik.values.accountName,
             onChange: formik.handleChange("accountName"),
             onBlur: formik.handleBlur("accountName"),
-          }}
-        />
-        <TextareaField
-          required
-          id="details"
-          type="text"
-          label="Why do you need the charity"
-          placeholder="Enter your reason here"
-          error={!!formik.touched.details && !!formik.errors.details}
-          helperText={!!formik.touched.details && formik.errors.details}
-          inputProps={{
-            value: formik.values.details,
-            onChange: formik.handleChange("details"),
-            onBlur: formik.handleBlur("details"),
           }}
         />
         <InputField
@@ -232,6 +202,41 @@ const RecipientSignup = () => {
             onBlur: formik.handleBlur("bankName"),
           }}
         />
+        <SelectField
+          type="text"
+          id="typeOfSupport"
+          label="Type of Support"
+          className="mb-3"
+          error={
+            !!formik?.touched?.typeOfSupport && !!formik?.errors?.typeOfSupport
+          }
+          inputProps={{
+            value: formik?.values?.typeOfSupport,
+            onChange: formik?.handleChange("typeOfSupport"),
+            onBlur: formik?.handleBlur("typeOfSupport"),
+          }}
+          requirement={true}
+        >
+          <option value="null">select support type</option>
+          <option value="medicine">Medicine</option>
+          <option value="food">Food</option>
+          <option value="clothes">Clothes</option>
+          <option value="money">Money</option>
+        </SelectField>
+        <TextareaField
+          required
+          id="details"
+          type="text"
+          label="Why do you need the charity"
+          placeholder="Enter your reason here"
+          error={!!formik.touched.details && !!formik.errors.details}
+          helperText={!!formik.touched.details && formik.errors.details}
+          inputProps={{
+            value: formik.values.details,
+            onChange: formik.handleChange("details"),
+            onBlur: formik.handleBlur("details"),
+          }}
+        />
         <TextareaField
           required
           id="address"
@@ -252,12 +257,30 @@ const RecipientSignup = () => {
           type="password"
           label="Password"
           placeholder="Enter password"
-          error={!!formik.touched.password && !!formik.errors.password}
-          helperText={!!formik.touched.password && formik.errors.password}
+          error={!!formik.touched.newPassword && !!formik.errors.newPassword}
+          helperText={!!formik.touched.newPassword && formik.errors.newPassword}
           inputProps={{
-            value: formik.values.password,
-            onChange: formik.handleChange("password"),
-            onBlur: formik.handleBlur("password"),
+            value: formik.values.newPassword,
+            onChange: formik.handleChange("newPassword"),
+            onBlur: formik.handleBlur("newPassword"),
+          }}
+        />
+        <InputField
+          required
+          id="confirmPassword"
+          type="password"
+          label="Confirm Password"
+          placeholder="Enter password"
+          error={
+            !!formik.touched.confirmPassword && !!formik.errors.confirmPassword
+          }
+          helperText={
+            !!formik.touched.confirmPassword && formik.errors.confirmPassword
+          }
+          inputProps={{
+            value: formik.values.confirmPassword,
+            onChange: formik.handleChange("confirmPassword"),
+            onBlur: formik.handleBlur("confirmPassword"),
           }}
         />
         <Button
