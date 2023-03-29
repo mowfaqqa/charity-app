@@ -86,7 +86,7 @@ const DonorLayout = ({ children }: AppProps) => {
                         "block font-medium py-2 text-sm text-gray-700"
                       )}
                     >
-                      <Button className="text-sm" onClick={"handleLogout"}>
+                      <Button className="text-sm" onClick={() => router.push('/auth/login/donor')}>
                         Sign Out
                       </Button>
                     </div>
