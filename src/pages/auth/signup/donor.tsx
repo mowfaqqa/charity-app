@@ -22,8 +22,8 @@ const DonorSignup = () => {
     initialValues: {
       name: "",
       email: "",
+      role: "donor",
       password: "",
-      role: "",
       address: "",
     },
     validationSchema: yup.object({
@@ -37,8 +37,7 @@ const DonorSignup = () => {
       password: yup
         .number()
         .label("Password")
-        .required("Password must be a number")
-      ,
+        .required("Password must be a number"),
     }),
     onSubmit: (values) => {
       const email = values.email;
@@ -55,7 +54,7 @@ const DonorSignup = () => {
           setDoc(doc(db, "USERS", user.uid), {
             ...values,
           });
-          setDoc(doc(db, "USERS", user.uid, "profile", 'data'), {
+          setDoc(doc(db, "USERS", user.uid, "profile", "data"), {
             ...values,
           });
           notifySuccess("Sign up as Donor successful");
@@ -66,13 +65,15 @@ const DonorSignup = () => {
         .catch((error: any) => {
           const errorMessage = error?.message;
           notifyError(errorMessage);
-      });
+        });
     },
   });
   return (
     <div className="bg-green-700/70 my-10 rounded-lg py-8 px-4 mx-3">
       <div className="text-center">
-        <h1 className="text-4xl font-bold text-yellow-400">Register as Donor</h1>
+        <h1 className="text-4xl font-bold text-yellow-400">
+          Register as Donor
+        </h1>
         {/* <p className='text-sm text-yellow-200'>have an account? <span><Link href="/auth/signup" passHref><span className='text-green-400'> Login</span></Link></span></p> */}
       </div>
       <div className="max-w-[1200px] mx-auto py-8">
@@ -104,23 +105,6 @@ const DonorSignup = () => {
             onBlur: formik.handleBlur("name"),
           }}
         />
-        <SelectField
-          type="text"
-          id="role"
-          label="role"
-          className="mb-3"
-          error={!!formik?.touched?.role && !!formik?.errors?.role}
-          inputProps={{
-            value: formik?.values?.role,
-            onChange: formik?.handleChange("role"),
-            onBlur: formik?.handleBlur("role"),
-          }}
-          requirement={true}
-        >
-          <option value="null">select role</option>
-          <option value="donor">Donor</option>
-          <option value="recipient" disabled={true}>Recipient</option>
-        </SelectField>
         <TextareaField
           required
           id="address"

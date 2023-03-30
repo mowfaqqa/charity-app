@@ -31,7 +31,7 @@ const RecipientSignup = () => {
       phoneNumber: "",
       details: "",
       typeOfSupport: "",
-      confirmPassword: "",
+      // confirmPassword: "",
     },
     validationSchema: yup.object({
       email: yup
@@ -70,9 +70,9 @@ const RecipientSignup = () => {
         .number()
         .label("Password")
         .required("Password Contain atleast 8 Numbers"),
-      confirmPassword: yup
-        .string()
-        .oneOf([yup.ref("newPassword"), null], "Passwords must match"),
+      // confirmPassword: yup
+      //   .string()
+      //   .oneOf([yup.ref("newPassword"), null], "Passwords must match"),
     }),
     onSubmit: (values) => {
       const email = values.email;
@@ -265,7 +265,7 @@ const RecipientSignup = () => {
             onBlur: formik.handleBlur("newPassword"),
           }}
         />
-        <InputField
+        {/* <InputField
           required
           id="confirmPassword"
           type="password"
@@ -282,7 +282,7 @@ const RecipientSignup = () => {
             onChange: formik.handleChange("confirmPassword"),
             onBlur: formik.handleBlur("confirmPassword"),
           }}
-        />
+        /> */}
         <Button
           variant="primary"
           type="submit"
