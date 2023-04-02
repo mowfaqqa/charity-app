@@ -22,7 +22,7 @@ const RecipientSignup = () => {
     initialValues: {
       name: "",
       email: "",
-      newPassword: "",
+      password: "",
       role: "recipient",
       address: "",
       accountName: "",
@@ -31,7 +31,7 @@ const RecipientSignup = () => {
       phoneNumber: "",
       details: "",
       typeOfSupport: "",
-      // confirmPassword: "",
+      confirmPassword: "",
     },
     validationSchema: yup.object({
       email: yup
@@ -66,17 +66,19 @@ const RecipientSignup = () => {
         ),
       address: yup.string().required().label("Address"),
       bankName: yup.string().required().label("Bank Name"),
-      newPassword: yup
-        .number()
+      password: yup
+        .string()
+        .matches(/^[0-9]+$/, "password must numbers")
         .label("Password")
-        .required("Password Contain atleast 8 Numbers"),
-      // confirmPassword: yup
-      //   .string()
-      //   .oneOf([yup.ref("newPassword"), null], "Passwords must match"),
+        .required("Password must be a number"),
+      confirmPassword: yup
+        .string()
+        .required("Please retype your password.")
+        .oneOf([yup.ref("password")], "Your passwords do not match."),
     }),
     onSubmit: (values) => {
       const email = values.email;
-      const password = values.newPassword;
+      const password = values.password;
       const name = values.name;
       signUp(email, password)
         .then((userCredential: any) => {
@@ -257,15 +259,15 @@ const RecipientSignup = () => {
           type="password"
           label="Password"
           placeholder="Enter password"
-          error={!!formik.touched.newPassword && !!formik.errors.newPassword}
-          helperText={!!formik.touched.newPassword && formik.errors.newPassword}
+          error={!!formik.touched.password && !!formik.errors.password}
+          helperText={!!formik.touched.password && formik.errors.password}
           inputProps={{
-            value: formik.values.newPassword,
-            onChange: formik.handleChange("newPassword"),
-            onBlur: formik.handleBlur("newPassword"),
+            value: formik.values.password,
+            onChange: formik.handleChange("password"),
+            onBlur: formik.handleBlur("password"),
           }}
         />
-        {/* <InputField
+        <InputField
           required
           id="confirmPassword"
           type="password"
@@ -282,7 +284,7 @@ const RecipientSignup = () => {
             onChange: formik.handleChange("confirmPassword"),
             onBlur: formik.handleBlur("confirmPassword"),
           }}
-        /> */}
+        />
         <Button
           variant="primary"
           type="submit"

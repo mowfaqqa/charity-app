@@ -25,6 +25,7 @@ const DonorSignup = () => {
       role: "donor",
       password: "",
       address: "",
+      confirmPassword: ""
     },
     validationSchema: yup.object({
       email: yup
@@ -35,9 +36,14 @@ const DonorSignup = () => {
       name: yup.string().required().label("Name"),
       address: yup.string().required().label("Address"),
       password: yup
-        .number()
+        .string()
+        .matches(/^[0-9]+$/, "password must numbers")
         .label("Password")
         .required("Password must be a number"),
+      confirmPassword: yup
+      .string()
+      .required('Please retype your password.')
+      .oneOf([yup.ref('password')], 'Your passwords do not match.')
     }),
     onSubmit: (values) => {
       const email = values.email;
@@ -131,6 +137,20 @@ const DonorSignup = () => {
             value: formik.values.password,
             onChange: formik.handleChange("password"),
             onBlur: formik.handleBlur("password"),
+          }}
+        />
+        <InputField
+          required
+          id="confirmPassword"
+          type="password"
+          label="Confirm Password"
+          placeholder="Enter password"
+          error={!!formik.touched.confirmPassword && !!formik.errors.confirmPassword}
+          helperText={!!formik.touched.confirmPassword && formik.errors.confirmPassword}
+          inputProps={{
+            value: formik.values.confirmPassword,
+            onChange: formik.handleChange("confirmPassword"),
+            onBlur: formik.handleBlur("confirmPassword"),
           }}
         />
         <Button
