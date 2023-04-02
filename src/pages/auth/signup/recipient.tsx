@@ -48,12 +48,12 @@ const RecipientSignup = () => {
         .string()
         .required()
         .label("Account Name")
-        .matches(/^[0-9]+$/, "account name must not include numbers"),
+        .matches(/^[a-zA-Z]+$/, "account name must not include numbers"),
       accountNumber: yup
-        .number()
+        .string()
         .required()
         .label("Account Number")
-        .max(9999999999, "Account number must be 10 digits"),
+        .matches(/^[0-9]+$/, "Account number must be a 10 digits number"),
       details: yup.string().required().label("Why do you need the charity"),
       phoneNumber: yup
         .string()
@@ -62,10 +62,14 @@ const RecipientSignup = () => {
         .max(11)
         .matches(
           /^[0-9]+$/,
-          "phone number must not include charaters  or letters"
+          "phone number must not include charaters or letters"
         ),
       address: yup.string().required().label("Address"),
-      bankName: yup.string().required().label("Bank Name"),
+      bankName: yup
+        .string()
+        .required()
+        .label("Bank Name")
+        .matches(/^[a-zA-Z]+$/, "Bank name must be a 10 digits number"),
       password: yup
         .string()
         .matches(/^[0-9]+$/, "password must numbers")

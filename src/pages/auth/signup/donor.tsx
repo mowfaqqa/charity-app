@@ -25,7 +25,7 @@ const DonorSignup = () => {
       role: "donor",
       password: "",
       address: "",
-      confirmPassword: ""
+      confirmPassword: "",
     },
     validationSchema: yup.object({
       email: yup
@@ -33,7 +33,11 @@ const DonorSignup = () => {
         .email()
         .required("Email is required")
         .label("Email Address"),
-      name: yup.string().required().label("Name"),
+      name: yup
+        .string()
+        .required()
+        .label("Name")
+        .matches(/^[a-zA-Z]+$/, " name must not include numbers"),
       address: yup.string().required().label("Address"),
       password: yup
         .string()
@@ -41,9 +45,9 @@ const DonorSignup = () => {
         .label("Password")
         .required("Password must be a number"),
       confirmPassword: yup
-      .string()
-      .required('Please retype your password.')
-      .oneOf([yup.ref('password')], 'Your passwords do not match.')
+        .string()
+        .required("Please retype your password.")
+        .oneOf([yup.ref("password")], "Your passwords do not match."),
     }),
     onSubmit: (values) => {
       const email = values.email;
@@ -145,8 +149,12 @@ const DonorSignup = () => {
           type="password"
           label="Confirm Password"
           placeholder="Enter password"
-          error={!!formik.touched.confirmPassword && !!formik.errors.confirmPassword}
-          helperText={!!formik.touched.confirmPassword && formik.errors.confirmPassword}
+          error={
+            !!formik.touched.confirmPassword && !!formik.errors.confirmPassword
+          }
+          helperText={
+            !!formik.touched.confirmPassword && formik.errors.confirmPassword
+          }
           inputProps={{
             value: formik.values.confirmPassword,
             onChange: formik.handleChange("confirmPassword"),
