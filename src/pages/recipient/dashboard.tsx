@@ -33,10 +33,26 @@ const Dashboard = () => {
           </h1>
         </CardV2>
         <CardV2 className="shadow-md border border-green-200 py-3 px-3 flex-col">
-          <h1 className="text-2xl flex text-blue-500 items-center font-semibold">
-            {" "}
-            Status : {myProfile?.status!}
-          </h1>
+          {myProfile?.status! === "pending" && (
+             <h1 className="text-2xl flex text-yellow-500 items-center font-semibold">
+             Status : {myProfile?.status!}
+           </h1>
+          )}
+          {myProfile?.status! === "verified" && (
+             <h1 className="text-2xl flex text-green-500 items-center font-semibold">
+             Status : {myProfile?.status!}
+           </h1>
+          )}
+          {myProfile?.status! === "resolved" && (
+             <h1 className="text-2xl flex text-blue-500 items-center font-semibold">
+             Status : {myProfile?.status!}
+           </h1>
+          )}
+          {myProfile?.status! === "rejected" && (
+             <h1 className="text-2xl flex text-red-500 items-center font-semibold">
+             Status : {myProfile?.status!}
+           </h1>
+          )}
         </CardV2>
       </div>
       <h3 className="font-semibold text-lg py-4">Recipient Details</h3>
