@@ -37,7 +37,7 @@ const DonorSignup = () => {
         .string()
         .required()
         .label("Name")
-        .matches(/^[a-zA-Z]+$/, " name must not include numbers"),
+        .matches(/^[a-zA-Z\s]+$/, " name must not include numbers"),
       address: yup.string().required().label("Address"),
       password: yup
         .string()

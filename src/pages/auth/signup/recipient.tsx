@@ -43,12 +43,12 @@ const RecipientSignup = () => {
         .string()
         .required()
         .label("Name")
-        .matches(/^[a-zA-Z]+$/, " name must not include numbers"),
+        .matches(/^[a-zA-Z\s]+$/, " name must not include numbers"),
       accountName: yup
         .string()
         .required()
         .label("Account Name")
-        .matches(/^[a-zA-Z]+$/, "account name must not include numbers"),
+        .matches(/^[a-zA-Z\s]+$/, "account name must not include numbers"),
       accountNumber: yup
         .string()
         .required()
@@ -69,7 +69,7 @@ const RecipientSignup = () => {
         .string()
         .required()
         .label("Bank Name")
-        .matches(/^[a-zA-Z]+$/, "Bank name must be a 10 digits number"),
+        .matches(/^[a-zA-Z\s]+$/, "Bank name must be a 10 digits number"),
       password: yup
         .string()
         .matches(/^[0-9]+$/, "password must numbers")
